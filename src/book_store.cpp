@@ -7,7 +7,22 @@
 ResizeStorageStatus resize_storage(Book *&storage, int size, int new_capacity) {
   // здесь мог бы быть ваш разносторонний и многогранный код ...
   // Tip 1: проведите валидацию аргументов функции
+    if (storage == nullptr) {
+        return ResizeStorageStatus::NULL_STORAGE;
+    }
+    if (size >= new_capacity) {
+        return ResizeStorageStatus::INSUFFICIENT_CAPACITY;
+    }
+    if (size < 0) {
+        return ResizeStorageStatus::NEGATIVE_SIZE;
+    }
   // Tip 2: не забудьте высвободить ранее выделенную память под хранилище
+    if (storage != nullptr && size >= 0 && size < new_capacity) {
+        auto new_storage = new Book[new_capacity];
+        std::copy(storage, storage + size, new_storage);
+        delete[] storage;
+        storage = new_storage;
+    }
   return ResizeStorageStatus::SUCCESS;
 }
 
@@ -19,12 +34,21 @@ BookStore::BookStore(const std::string &name) : name_{name} {
   }
 
   // здесь мог бы быть ваш сотрясающий землю и выделяющий память код ...
+    name_ = name;
+    storage_capacity_ = kInitStorageCapacity;
+    storage_ = new Book[storage_capacity_];
 }
 
 // 3. реализуйте деструктор ...
 BookStore::~BookStore() {
   // здесь мог бы быть ваш высвобождающий разум от негатива код ...
   // Tip 1: я свободен ..., словно память в куче: не забудьте обнулить указатель
+    if (storage_ != nullptr) {
+        delete[] storage_;
+        storage_ = nullptr;
+    }
+    storage_capacity_ = 0;
+    storage_size_ = 0;
 }
 
 // 4. реализуйте метод ...
@@ -33,8 +57,11 @@ void BookStore::AddBook(const Book &book) {
     // здесь мог бы быть ваш умопомрачительный код ...
     // Tip 1: используйте функцию resize_storage_internal, задав новый размер хранилища
     // Tip 2: не забудьте обработать статус вызова функции
+      ResizeStorageStatus storage_status = resize_storage_internal(storage_capacity_ + kCapacityCoefficient);
   }
   // Tip 3: не забудьте добавить книгу в наше бездонное хранилище ...
+    storage_[storage_size_] = book;
+    storage_size_ += 1;
 }
 
 // РЕАЛИЗОВАНО
