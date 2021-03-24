@@ -1,6 +1,6 @@
 #include "author.hpp"
 
-#include <stdexcept>  // invalid_argument
+#include <stdexcept>  // invalid_argumen
 
 // 1. реализуйте конструктор ...
 Author::Author(const std::string &full_name, int age, Sex sex) {
@@ -13,6 +13,9 @@ Author::Author(const std::string &full_name, int age, Sex sex) {
     throw std::invalid_argument("Author::full_name must not be empty");
   }
   // Tip 1: инициализируйте поля
+    full_name_ = full_name;
+    age_ = age;
+    sex_ = sex;
 }
 
 void Author::SetAge(int age) {
