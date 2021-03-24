@@ -43,7 +43,7 @@ bool Book::AddAuthor(const Author &author) {
     authors_.push_back(author);
     return true;
 }
-// РЕАЛИЗОВАНО
+// РЕАЛИЗОВАН
 
 const std::string &Book::GetTitle() const {
   return title_;

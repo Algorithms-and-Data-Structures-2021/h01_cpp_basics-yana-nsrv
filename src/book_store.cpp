@@ -51,7 +51,7 @@ BookStore::~BookStore() {
     storage_size_ = 0;
 }
 
-// 4. реализуйте метод ...
+// 4. реализуйте метод ..
 void BookStore::AddBook(const Book &book) {
   if (storage_size_ == storage_capacity_) {
     // здесь мог бы быть ваш умопомрачительный код ...

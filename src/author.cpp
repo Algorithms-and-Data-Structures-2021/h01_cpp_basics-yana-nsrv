@@ -1,6 +1,6 @@
 #include "author.hpp"
 
-#include <stdexcept>  // invalid_argument
+#include <stdexcept>  // invalid_argumen
 
 // 1. реализуйте конструктор ...
 Author::Author(const std::string &full_name, int age, Sex sex) {
